@@ -1,0 +1,22 @@
+const express = require('express');
+const app = express();
+const userRoutes = require('./routes/user.routes');
+const taskRoutes = require('./routes/task.routes');
+const cookieparser = require('cookie-parser');
+const cors = require("cors");
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieparser());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
+
+
+
+
+app.use('/api/users',userRoutes);
+app.use('/api/task',taskRoutes);
+
+module.exports = app;
