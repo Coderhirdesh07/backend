@@ -76,19 +76,10 @@ async function handleUserRegistration(request, response) {
       email,
       password: hashedPassword,
     });
-    const token = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-        name: user.name,
-      },
-      process.env.ACCESS_TOKEN_SECRET_KEY,
-      { expiresIn: '1d' }
-    );
-
+    
     await newUser.save();
 
-    response.status(201).cookie('token',token).json({ message: 'User created successfully' });
+    response.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     response.status(500).json({ message: 'Server error', error: error.message });
   }
